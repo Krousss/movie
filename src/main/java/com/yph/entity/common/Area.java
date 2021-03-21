@@ -34,6 +34,25 @@ public class Area extends BaseEntity {
 	@Column(name="is_show")
 	private Boolean isShow = true;//是否显示
 
+	@Column(name = "level")
+	private int level;//区域等级
+
+	public Boolean getShow() {
+		return isShow;
+	}
+
+	public void setShow(Boolean show) {
+		isShow = show;
+	}
+
+	public int getLevel() {
+		return level;
+	}
+
+	public void setLevel(int level) {
+		this.level = level;
+	}
+
 	public Long getProvinceId() {
 		return provinceId;
 	}
@@ -72,6 +91,4 @@ public class Area extends BaseEntity {
 				+ ", name=" + name + ", isShow=" + isShow + "]";
 	}
 
-	
-	
 }

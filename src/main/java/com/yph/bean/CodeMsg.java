@@ -98,5 +98,9 @@ public class CodeMsg {
 	//后台地域管理添加地域名称为空错误码
 	public static CodeMsg ADMIN_AREA_ADD_NAME_EMPTY=new CodeMsg(-9000,"地域名称为空");
 	public static CodeMsg ADMIN_AREA_ADD_SAVE_ERROR=new CodeMsg(-9001,"地域保存出错，请联系管理员");
+	public static CodeMsg ADMIN_AREA_DELETE_ERROR=new CodeMsg(-9002,"地域删除出错，请联系管理员");
+
+	//后台电影管理错误码
+	public static CodeMsg ADMIN_AREA_SAVE_ERROR=new CodeMsg(-9003,"电影信息保存出错，请联系管理员");
 
 }

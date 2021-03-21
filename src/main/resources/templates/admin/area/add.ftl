@@ -123,20 +123,20 @@ $(document).ready(function(){
 			}
 		});
 	});
-	//监听省份下拉框改变
-//	$("#province").change(function(){
-//		var pid = $(this).val();
-//		ajaxRequest('get_citys','POST',{pid:pid},function(data){
-//			var citys = data.data;
-//			var options = '<option value="">请选择城市</option>';
-//			for(var i=0;i < citys.length;i++){
-//				var option = '<option value="'+citys[i].id+'">'+citys[i].name+'</option>';
-//				options += option;
-//			}
-//			$("#city option").remove();
-//			$("#city").append(options);
-//		});
-//	});
+    //监听省份下拉框改变
+    $("#province").change(function(){
+        var pid = $(this).val();
+        ajaxRequest('get_citys','POST',{pid:pid},function(data){
+            var citys = data.data;
+            var options = '<option value="">请选择城市</option>';
+            for(var i=0;i < citys.length;i++){
+                var option = '<option value="'+citys[i].id+'">'+citys[i].name+'</option>';
+                options += option;
+            }
+            $("#city option").remove();
+            $("#city").append(options);
+        });
+    });
 });
 
 </script>

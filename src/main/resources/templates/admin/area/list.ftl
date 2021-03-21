@@ -189,7 +189,8 @@ function deleteReq(id,url){
 		success:function(data){
 			if(data.code == 0){
 				showSuccessMsg('地域删除成功!',function(){
-					$("input[type='checkbox']:checked").parents("tr").remove();
+//					$("input[type='checkbox']:checked").parents("tr").remove();
+                    location.reload();
 				})
 			}else{
 				showErrorMsg(data.msg);

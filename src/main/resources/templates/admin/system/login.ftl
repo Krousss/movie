@@ -21,6 +21,7 @@
     padding: 2.14286em 3.57143em;
     border-radius: 5px;
     margin: 2.85714em 0;
+    background: rgba(255,255,255,.6);
 }
 .login-header {
     margin-bottom: 1.5rem !important;
@@ -40,6 +41,9 @@
 }
 .login-center .has-feedback.feedback-left.row .form-control-feedback {
     left: 15px;
+}
+body{
+    background: url(/admin/images/11.jpg);
 }
 </style>
 </head>
