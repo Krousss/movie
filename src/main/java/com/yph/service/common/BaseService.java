@@ -1,10 +1,6 @@
-package com.yph.service.common;
+package com.rihua.common.service;
 
-/**
- * Created by Yph on 2021/3/14.
- */
-
-import com.yph.dao.common.BaseDao;
+import com.rihua.common.dao.BaseDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.Page;
@@ -12,14 +8,17 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.data.jpa.repository.Modifying;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.criteria.*;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+
 
 /**
  * baseservice整合公用方法
@@ -98,7 +97,38 @@ public class BaseService<T, ID extends Serializable> {
     }
 
 
+    /**
+     * 查询所有status=1的数据
+     *
+     * @return
+     */
+    public List<T> findAllByStatus(String orgId) {
+        Specification<T> spec = new Specification<T>() {        //查询条件构造
+            @Override
+            public Predicate toPredicate(Root<T> root, CriteriaQuery<?> query, CriteriaBuilder cb) {
 
+                List<Predicate> list = new ArrayList<>();
+
+                Predicate p1 = cb.equal(root.get("status"), "1");
+                list.add(p1);
+
+                Predicate pOrgId = cb.equal(root.get("orgId"), orgId);
+                list.add(pOrgId);
+
+                Predicate endPredicate = cb.and(list.toArray(new Predicate[list.size()]));
+                return endPredicate;
+            }
+        };
+        Sort sort = new Sort(Sort.Direction.DESC, "createTime");
+        return baseDao.findAll(spec,sort);
+    }
+
+
+
+
+    public void saveNotNull(T entity) {
+        baseDao.saveNotNull(entity);
+    }
 
 
 
@@ -172,6 +202,16 @@ public class BaseService<T, ID extends Serializable> {
         return baseDao.saveAndFlush(entity);
     }
 
+    /**
+     * Deletes the given entities in a batch which means it will create a single {@link Query}. Assume that we will clear
+     * the {@link EntityManager} after the call.
+     *
+     * @param entities
+     */
+    @Transactional
+    public void deleteInBatch(Iterable<T> entities) {
+        baseDao.deleteInBatch(entities);
+    }
 
     /**
      * Deletes all entities in a batch call.
