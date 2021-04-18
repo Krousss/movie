@@ -6,7 +6,7 @@ package com.yph.bean;
  */
 public class CodeMsg {
 
-	private int code;//错误码
+    private int code;//错误码
 	
 	private String msg;//错误信息
 	
@@ -102,5 +102,8 @@ public class CodeMsg {
 
 	//后台电影管理错误码
 	public static CodeMsg ADMIN_AREA_SAVE_ERROR=new CodeMsg(-9003,"电影信息保存出错，请联系管理员");
+	public static CodeMsg ADMIN_MOVIE_DELETE_ERROR=new CodeMsg(-9005,"电影信息删除出错，请联系管理员");
+
+	public static CodeMsg UPLOAD_VIDEO_ERROR=new CodeMsg(-9004,"上传视频错误");
 
 }

@@ -34,4 +34,12 @@ public class MovieService extends BaseService<Movie,Long> {
         pageBean.setTotalPage(findAll.getTotalPages());
         return pageBean;
     }
+
+    /**
+     * 删除电影
+     * @param id
+     */
+    public void delete(Long id) {
+        movieDao.deleteById(id);
+    }
 }

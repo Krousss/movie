@@ -110,3 +110,49 @@ function ajaxRequest(url,requestType,data,callback){
 		}
 	});
 }
+function uploadPhoto(photo,callback){
+    //formdata
+    var formData = new FormData();
+    formData.append('photo',photo);
+    $.ajax({
+        url:'/upload/upload_photo',
+        contentType:false,
+        processData:false,
+        data:formData,
+        type:'POST',
+        success:function(data){
+            if(data.code == 0){
+                callback(data);
+            }else{
+                //data = $.parseJSON(data);
+                showErrorMsg(data.msg);
+            }
+        },
+        error:function(data){
+            alert('网络错误!');
+        }
+    });
+}
+function uploadVideoToServer(video,callback){
+    //formdata
+    var formData = new FormData();
+    formData.append('video',video);
+    $.ajax({
+        url:'/upload/upload_video',
+        contentType:false,
+        processData:false,
+        data:formData,
+        type:'POST',
+        success:function(data){
+            if(data.code == 0){
+                callback(data);
+            }else{
+                //data = $.parseJSON(data);
+                showErrorMsg(data.msg);
+            }
+        },
+        error:function(data){
+            alert('网络错误!');
+        }
+    });
+}

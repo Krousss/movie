@@ -34,6 +34,7 @@ public class RuntimeConstant {
 			"/system/logout",
 			"/system/update_userinfo",
 			"/system/update_pwd",
-			"/photo/view"
+			"/photo/view",
+			"/download/download_video"
 		);
 }

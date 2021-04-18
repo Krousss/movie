@@ -36,6 +36,15 @@ public class UploadController {
 	private String uploadPhotoPath;//文件保存位置
 	
 	private Logger log = LoggerFactory.getLogger(UploadController.class);
+
+	@Value("${ylrc.upload.video.sufix}")
+	private String uploadVideoSufix;
+
+	@Value("${ylrc.upload.video.maxsize}")
+	private long uploadVideoMaxSize;
+
+	@Value("${ylrc.upload.video.path}")
+	private String uploadVideoPath;//视频保存位置
 	
 	/**
 	 * 图片统一上传类
@@ -80,6 +89,51 @@ public class UploadController {
 			e.printStackTrace();
 		}
 		log.info("图片上传成功，保存位置：" + uploadPhotoPath + filename);
+		return Result.success(filename);
+	}
+	/**
+	 * 上传视频
+	 * @param video
+	 * @return
+	 */
+	@RequestMapping(value="/upload_video",method=RequestMethod.POST)
+	@ResponseBody
+	public Result<String> uploadVideo(@RequestParam(name="video",required=true)MultipartFile video){
+		//判断文件类型是否是视频
+		String originalFilename = video.getOriginalFilename();
+		//获取文件后缀
+		String suffix = originalFilename.substring(originalFilename.lastIndexOf("."),originalFilename.length());
+		if(!uploadVideoSufix.contains(suffix.toLowerCase())){
+			return Result.error(CodeMsg.UPLOAD_VIDEO_ERROR);
+		}
+		if(video.getSize()/1024 > uploadVideoMaxSize){
+			CodeMsg codeMsg = CodeMsg.UPLOAD_PHOTO_ERROR;
+			codeMsg.setMsg("视频大小不能超过" + (uploadVideoMaxSize/1024) + "M");
+			return Result.error(codeMsg);
+		}
+		//准备保存文件
+		File filePath = new File(uploadVideoPath);
+		if(!filePath.exists()){
+			//若不存在文件夹，则创建一个文件夹
+			filePath.mkdir();
+		}
+		filePath = new File(uploadVideoPath + "/" + StringUtil.getFormatterDate(new Date(), "yyyyMMdd"));
+		//判断当天日期的文件夹是否存在，若不存在，则创建
+		if(!filePath.exists()){
+			//若不存在文件夹，则创建一个文件夹
+			filePath.mkdir();
+		}
+		String filename = StringUtil.getFormatterDate(new Date(), "yyyyMMdd") + "/" + System.currentTimeMillis() + suffix;
+		try {
+			video.transferTo(new File(uploadVideoPath+"/"+filename));
+		} catch (IllegalStateException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		log.info("视频上传成功，保存位置：" + uploadVideoPath + filename);
 		return Result.success(filename);
 	}
 }

@@ -52,7 +52,7 @@ td{
                     </div>
                     <input type="text" class="form-control" value="${name!""}" name="name" placeholder="请输入电影名">
                   	<span class="input-group-btn">
-                      <button class="btn btn-primary" type="submit">搜索</button>
+                      <button class="btn btn-pfrimary" type="submit">搜索</button>
                     </span>
                   </div>
                 </form>
@@ -91,7 +91,7 @@ td{
                           </label>
                         </td>
                         <td style="vertical-align:middle;">
-                        	<a href="/home/movie/detail?id=${movie.id}" target="_blank">
+                        	<a href="" target="_blank">
                         	<#if movie.mainPic??>
                         		<#if movie.mainPic?length gt 0>
                         		<img src="/photo/view?filename=${movie.mainPic}" width="60px" height="60px">
